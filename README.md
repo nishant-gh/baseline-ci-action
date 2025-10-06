@@ -37,7 +37,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Baseline CI
-        uses: your-username/baseline-ci-action@v1
+        uses: nishant-gh/baseline-ci-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           severity: 'warn' # or 'fail' to block PRs

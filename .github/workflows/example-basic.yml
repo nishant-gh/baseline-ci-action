@@ -1,0 +1,19 @@
+name: Baseline CI Check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  baseline-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Baseline CI
+        uses: nishant-gh/baseline-ci-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          severity: 'warn'
+          target-baseline: 'widely'

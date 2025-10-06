@@ -1,0 +1,20 @@
+name: Baseline CI - Strict Mode
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  baseline-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Baseline CI (Strict)
+        uses: nishant-gh/baseline-ci-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          severity: 'fail'  # Fail the build on non-baseline features
+          target-baseline: 'widely'  # Only allow widely available features
+          file-patterns: '**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.css,**/*.scss'
