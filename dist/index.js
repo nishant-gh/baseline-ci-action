@@ -1225,8 +1225,9 @@ async function run() {
                 issue_number: prNumber,
             });
             // Find existing Baseline CI comment
-            const existingComment = comments.find((comment) => comment.body?.includes('<!-- baseline-ci-report -->') &&
-                comment.user?.type === 'Bot');
+            // Only check for the HTML comment marker, not the user type
+            // This ensures we can update our own comments regardless of auth method
+            const existingComment = comments.find((comment) => comment.body?.includes('<!-- baseline-ci-report -->'));
             if (existingComment) {
                 // Update existing comment
                 await octokit.rest.issues.updateComment({
