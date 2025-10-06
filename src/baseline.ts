@@ -1,5 +1,8 @@
-import { features } from 'web-features';
+// Import JSON data directly to avoid import.meta.url issues with bundling
+import data from 'web-features/data.json';
 import type { DetectedFeature } from './detector';
+
+const { features } = data as any;
 
 export interface BaselineStatus {
   status: 'widely' | 'newly' | 'limited' | 'unknown';
