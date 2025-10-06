@@ -653,6 +653,66 @@ Object.defineProperty(exports, "default", ({ enumerable: true, get: function () 
 
 /***/ }),
 
+/***/ 205:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.promiseWithResolversDetector = void 0;
+const traverse_1 = __importDefault(__nccwpck_require__(4125));
+const base_1 = __nccwpck_require__(8810);
+exports.promiseWithResolversDetector = {
+    id: 'promise-withresolvers',
+    type: 'js',
+    name: 'Promise.withResolvers',
+    webFeaturesId: 'promise-withresolvers',
+    detect(context) {
+        if (!(0, base_1.isJSContext)(context)) {
+            return [];
+        }
+        const features = [];
+        (0, traverse_1.default)(context.ast, {
+            MemberExpression(path) {
+                const obj = path.node.object;
+                const prop = path.node.property;
+                // Check for Promise.withResolvers
+                if (obj.type === 'Identifier' &&
+                    obj.name === 'Promise' &&
+                    prop.type === 'Identifier' &&
+                    prop.name === 'withResolvers') {
+                    features.push({
+                        name: 'Promise.withResolvers',
+                        type: 'js',
+                        file: context.filename,
+                        line: path.node.loc?.start.line,
+                    });
+                }
+            },
+        });
+        return features;
+    },
+};
+//# sourceMappingURL=detector.js.map
+
+/***/ }),
+
+/***/ 6639:
+/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports["default"] = void 0;
+var detector_1 = __nccwpck_require__(205);
+Object.defineProperty(exports, "default", ({ enumerable: true, get: function () { return detector_1.promiseWithResolversDetector; } }));
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
 /***/ 7284:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -667,6 +727,7 @@ exports.initialize = initialize;
 const registry_1 = __nccwpck_require__(6680);
 // Import feature detectors
 const promise_try_1 = __importDefault(__nccwpck_require__(9057));
+const promise_withresolvers_1 = __importDefault(__nccwpck_require__(6639));
 const array_at_1 = __importDefault(__nccwpck_require__(305));
 const container_queries_1 = __importDefault(__nccwpck_require__(4522));
 const css_has_pseudo_1 = __importDefault(__nccwpck_require__(2019));
@@ -676,6 +737,7 @@ const css_has_pseudo_1 = __importDefault(__nccwpck_require__(2019));
 function loadDetectors() {
     registry_1.registry.registerAll([
         promise_try_1.default,
+        promise_withresolvers_1.default,
         array_at_1.default,
         container_queries_1.default,
         css_has_pseudo_1.default,

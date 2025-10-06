@@ -1,0 +1,36 @@
+/* This file uses CSS features with different Baseline statuses */
+
+/* Container queries - widely available */
+@container (min-width: 400px) {
+  .card {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+/* :has() selector - widely available */
+.parent:has(.child) {
+  background-color: lightblue;
+}
+
+/* Cascade layers - widely available */
+@layer base, components, utilities;
+
+@layer base {
+  body {
+    font-family: system-ui;
+  }
+}
+
+/* CSS nesting - newly available */
+.container {
+  padding: 1rem;
+
+  & .item {
+    margin: 0.5rem;
+
+    &:hover {
+      background: gray;
+    }
+  }
+}
