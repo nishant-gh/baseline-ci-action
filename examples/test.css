@@ -1,18 +1,20 @@
 /* Example CSS file showing various features for testing Baseline CI */
+/* This file demonstrates CSS features across different Baseline status categories */
 
 /* Widely available features (safe to use) */
 .container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem; /* Check if gap is widely available */
+  gap: 1rem; /* Flexbox gap - check baseline status */
 }
 
-/* Container queries (newer feature) */
+/* Container queries (widely available) */
 @container (min-width: 700px) {
   .card {
     display: grid;
     grid-template-columns: 2fr 1fr;
+    gap: 1rem;
   }
 }
 
@@ -21,50 +23,56 @@
   container-name: sidebar;
 }
 
-/* CSS Cascade Layers (newer feature) */
+/* CSS Cascade Layers (widely available) */
 @layer base, components, utilities;
 
 @layer base {
   h1 {
     font-size: 2rem;
+    line-height: 1.2;
   }
 }
 
-/* Modern selectors */
+/* Modern selectors - :has() is newly available */
 .parent:has(> .child) {
   background-color: lightblue;
+  padding: 1rem;
 }
 
 .button:is(:hover, :focus) {
   transform: scale(1.05);
 }
 
-/* Math functions */
+/* Math functions (widely available) */
 .responsive {
   width: clamp(200px, 50%, 800px);
   padding: min(2rem, 5vw);
+  margin: max(1rem, 2vh);
 }
 
-/* Modern properties */
+/* Modern properties - mix of widely and limited availability */
 .aspect-box {
-  aspect-ratio: 16 / 9;
+  aspect-ratio: 16 / 9; /* Widely available */
+  width: 100%;
 }
 
 .grid-container {
   display: grid;
-  place-items: center;
+  place-items: center; /* Check baseline status */
+  gap: 2rem;
 }
 
 .positioned {
-  inset: 0;
+  position: absolute;
+  inset: 0; /* Check baseline status */
 }
 
 .scrollable {
-  scroll-snap-type: y mandatory;
-  overscroll-behavior: contain;
+  scroll-snap-type: y mandatory; /* Widely available */
+  overscroll-behavior: contain; /* Check availability */
 }
 
 .themed {
-  accent-color: blue;
-  color-scheme: light dark;
+  accent-color: blue; /* Limited availability */
+  color-scheme: light dark; /* Widely available */
 }

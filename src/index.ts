@@ -82,7 +82,7 @@ async function run(): Promise<void> {
 
           if (detected.length > 0) {
             core.info(
-              `   ${file.filename}: ${detected.length} features detected`
+              `   ${file.filename}: ${detected.length} features detected`,
             );
           }
         }
@@ -131,11 +131,11 @@ async function run(): Promise<void> {
 
     if (status === 'fail') {
       core.setFailed(
-        `Found ${issues.length} non-baseline features (severity: ${severity})`
+        `Found ${issues.length} non-baseline features (severity: ${severity})`,
       );
     } else if (issues.length > 0) {
       core.warning(
-        `Found ${issues.length} non-baseline features (severity: warn only)`
+        `Found ${issues.length} non-baseline features (severity: warn only)`,
       );
     } else {
       core.info('✅ All features are baseline-compliant!');

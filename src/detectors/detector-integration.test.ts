@@ -28,7 +28,7 @@ describe('Detector Integration', () => {
       const features = detectJSFeatures(code, 'test.ts');
 
       const arrayAtFeature = features.find(
-        (f) => f.name === 'Array.prototype.at'
+        (f) => f.name === 'Array.prototype.at',
       );
       expect(arrayAtFeature).toBeDefined();
       expect(arrayAtFeature?.type).toBe('js');
@@ -103,7 +103,7 @@ describe('Detector Integration', () => {
       const features = detectCSSFeatures(code, 'test.css');
 
       const containerFeature = features.find(
-        (f) => f.name === 'css-container-queries'
+        (f) => f.name === 'css-container-queries',
       );
       expect(containerFeature).toBeDefined();
       expect(containerFeature?.type).toBe('css');
@@ -161,7 +161,7 @@ describe('Detector Integration', () => {
 
       expect(features.length).toBeGreaterThan(0);
       expect(features.some((f) => f.name === 'css-container-queries')).toBe(
-        true
+        true,
       );
       expect(features.some((f) => f.name === 'css-has-pseudo')).toBe(true);
       expect(features.some((f) => f.name === 'css-aspect-ratio')).toBe(true);

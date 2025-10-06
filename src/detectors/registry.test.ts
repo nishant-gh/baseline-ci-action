@@ -38,7 +38,7 @@ describe('DetectorRegistry', () => {
       registry.register(mockJSDetector);
 
       expect(consoleSpy).toHaveBeenCalledWith(
-        expect.stringContaining('already registered')
+        expect.stringContaining('already registered'),
       );
 
       consoleSpy.mockRestore();

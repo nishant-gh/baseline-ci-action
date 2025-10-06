@@ -1,5 +1,8 @@
-import { features } from 'web-features';
+// Import JSON data directly to avoid import.meta.url issues with bundling
+import data from 'web-features/data.json';
 import type { DetectedFeature } from './detector';
+
+const { features } = data as any;
 
 export interface BaselineStatus {
   status: 'widely' | 'newly' | 'limited' | 'unknown';
@@ -80,7 +83,7 @@ export function getBaselineStatus(featureId: string): BaselineStatus {
  * Analyze detected features against Baseline data
  */
 export function analyzeFeatures(
-  detectedFeatures: DetectedFeature[]
+  detectedFeatures: DetectedFeature[],
 ): FeatureAnalysis[] {
   const analyses: FeatureAnalysis[] = [];
 
@@ -88,7 +91,7 @@ export function analyzeFeatures(
   const uniqueFeatures = detectedFeatures.filter(
     (feature, index, self) =>
       index ===
-      self.findIndex((f) => f.name === feature.name && f.file === feature.file)
+      self.findIndex((f) => f.name === feature.name && f.file === feature.file),
   );
 
   for (const feature of uniqueFeatures) {
@@ -111,7 +114,7 @@ export function analyzeFeatures(
       const possibleMatches = Object.keys(features).filter(
         (id) =>
           feature.name.toLowerCase().includes(id) ||
-          id.includes(feature.name.toLowerCase())
+          id.includes(feature.name.toLowerCase()),
       );
 
       if (possibleMatches.length > 0) {
@@ -145,7 +148,7 @@ export function analyzeFeatures(
  */
 export function filterByBaselineStatus(
   analyses: FeatureAnalysis[],
-  targetStatus: 'widely' | 'newly' | 'all'
+  targetStatus: 'widely' | 'newly' | 'all',
 ): FeatureAnalysis[] {
   if (targetStatus === 'all') {
     return analyses;
