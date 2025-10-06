@@ -14,7 +14,7 @@ export type { DetectedFeature } from './detectors/base';
  */
 export function detectJSFeatures(
   code: string,
-  filename: string
+  filename: string,
 ): DetectedFeature[] {
   const features: DetectedFeature[] = [];
 
@@ -48,7 +48,7 @@ export function detectJSFeatures(
  */
 export function detectCSSFeatures(
   code: string,
-  filename: string
+  filename: string,
 ): DetectedFeature[] {
   const features: DetectedFeature[] = [];
 
@@ -77,7 +77,7 @@ export function detectCSSFeatures(
  */
 export function detectFeatures(
   code: string,
-  filename: string
+  filename: string,
 ): DetectedFeature[] {
   const ext = filename.split('.').pop()?.toLowerCase();
 
@@ -97,7 +97,7 @@ export function detectFeatures(
 function detectLegacyJSFeatures(
   code: string,
   filename: string,
-  ast: any
+  ast: any,
 ): DetectedFeature[] {
   const features: DetectedFeature[] = [];
   const traverse = require('@babel/traverse').default;
@@ -127,7 +127,7 @@ function detectLegacyJSFeatures(
 
         if (
           legacyAPIs.some((api) =>
-            apiCall.includes(api.split('.').slice(0, 2).join('.'))
+            apiCall.includes(api.split('.').slice(0, 2).join('.')),
           )
         ) {
           features.push({
@@ -176,7 +176,7 @@ function detectLegacyJSFeatures(
 function detectLegacyCSSFeatures(
   code: string,
   filename: string,
-  root: any
+  root: any,
 ): DetectedFeature[] {
   const features: DetectedFeature[] = [];
 

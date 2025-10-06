@@ -13,7 +13,7 @@ export class DetectorRegistry {
   register(detector: FeatureDetector): void {
     if (this.detectors.has(detector.id)) {
       console.warn(
-        `Detector with id "${detector.id}" is already registered. Overwriting.`
+        `Detector with id "${detector.id}" is already registered. Overwriting.`,
       );
     }
     this.detectors.set(detector.id, detector);

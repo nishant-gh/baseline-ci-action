@@ -103,7 +103,7 @@ function formatFeatureTable(features: FeatureAnalysis[]): string {
       featureLink = `[\`${
         feature.name
       }\`](https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(
-        feature.name
+        feature.name,
       )})`;
     } else {
       featureLink = `\`${feature.name}\``;

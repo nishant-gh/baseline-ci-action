@@ -63,7 +63,7 @@ export interface FeatureDetector {
  * Type guard for JS detection context
  */
 export function isJSContext(
-  context: JSDetectionContext | CSSDetectionContext
+  context: JSDetectionContext | CSSDetectionContext,
 ): context is JSDetectionContext {
   return 'ast' in context;
 }
@@ -72,7 +72,7 @@ export function isJSContext(
  * Type guard for CSS detection context
  */
 export function isCSSContext(
-  context: JSDetectionContext | CSSDetectionContext
+  context: JSDetectionContext | CSSDetectionContext,
 ): context is CSSDetectionContext {
   return 'root' in context;
 }

@@ -7,7 +7,11 @@
     "build": "tsc && ncc build lib/index.js -o dist --source-map --license licenses.txt",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest --coverage"
+    "test:coverage": "vitest --coverage",
+    "format": "biome format --write .",
+    "lint": "biome lint --write .",
+    "check": "biome check --write .",
+    "ci": "biome ci ."
   },
   "keywords": [
     "github-action",
@@ -28,6 +32,7 @@
     "web-features": "^3.3.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.2.5",
     "@types/babel__traverse": "^7.28.0",
     "@types/node": "^24.6.2",
     "@vercel/ncc": "^0.38.4",
