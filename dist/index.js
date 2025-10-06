@@ -862,7 +862,12 @@ No non-baseline features detected in this PR. All features used are ${targetBase
         widely: issues.filter((i) => i.baselineStatus.status === 'widely'),
     };
     let comment = `## ⚠️ Baseline CI - Features Detected\n\n`;
-    comment += `**Target:** Baseline ${targetBaseline === 'widely' ? 'Widely Available' : 'Newly Available'}\n`;
+    const targetLabel = targetBaseline === 'widely'
+        ? 'Widely Available'
+        : targetBaseline === 'newly'
+            ? 'Newly Available'
+            : 'All Features';
+    comment += `**Target:** Baseline ${targetLabel}\n`;
     comment += `**Total Issues:** ${issues.length}\n\n`;
     // Limited availability features
     if (byStatus.limited.length > 0) {
@@ -871,11 +876,19 @@ No non-baseline features detected in this PR. All features used are ${targetBase
         comment += formatFeatureTable(byStatus.limited);
         comment += `\n`;
     }
-    // Newly available features (only shown if target is 'widely')
-    if (byStatus.newly.length > 0 && targetBaseline === 'widely') {
+    // Newly available features
+    if (byStatus.newly.length > 0 &&
+        (targetBaseline === 'widely' || targetBaseline === 'all')) {
         comment += `### 🟡 Newly Available (${byStatus.newly.length})\n\n`;
         comment += `These features are baseline but not yet widely available (< 30 months across browsers):\n\n`;
         comment += formatFeatureTable(byStatus.newly);
+        comment += `\n`;
+    }
+    // Widely available features (only shown if target is 'all')
+    if (byStatus.widely.length > 0 && targetBaseline === 'all') {
+        comment += `### ✅ Widely Available (${byStatus.widely.length})\n\n`;
+        comment += `These features are widely available across modern browsers (30+ months):\n\n`;
+        comment += formatFeatureTable(byStatus.widely);
         comment += `\n`;
     }
     // Unknown features
