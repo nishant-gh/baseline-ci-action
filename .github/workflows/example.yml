@@ -8,6 +8,9 @@ jobs:
   baseline-check:
     name: Check Baseline Compatibility
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
 
     steps:
       - name: Checkout code
