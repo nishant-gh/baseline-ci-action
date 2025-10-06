@@ -3,7 +3,6 @@ import * as github from '@actions/github';
 import { detectFeatures } from './detector';
 import { analyzeFeatures, filterByBaselineStatus } from './baseline';
 import { formatComment, formatSummary } from './formatter';
-import * as fs from 'fs';
 import * as path from 'path';
 
 async function run(): Promise<void> {
@@ -105,17 +104,43 @@ async function run(): Promise<void> {
       issues,
     });
 
-    // Post comment to PR
+    // Find and update existing comment or create new one
     try {
-      await octokit.rest.issues.createComment({
+      // Get existing comments
+      const { data: comments } = await octokit.rest.issues.listComments({
         owner: context.repo.owner,
         repo: context.repo.repo,
         issue_number: prNumber,
-        body: comment,
       });
-      core.info('💬 Comment posted to PR');
+
+      // Find existing Baseline CI comment
+      const existingComment = comments.find(
+        (comment) =>
+          comment.body?.includes('<!-- baseline-ci-report -->') &&
+          comment.user?.type === 'Bot',
+      );
+
+      if (existingComment) {
+        // Update existing comment
+        await octokit.rest.issues.updateComment({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          comment_id: existingComment.id,
+          body: comment,
+        });
+        core.info('💬 Updated existing Baseline CI comment');
+      } else {
+        // Create new comment
+        await octokit.rest.issues.createComment({
+          owner: context.repo.owner,
+          repo: context.repo.repo,
+          issue_number: prNumber,
+          body: comment,
+        });
+        core.info('💬 Created new Baseline CI comment');
+      }
     } catch (error) {
-      core.warning(`Failed to post comment: ${error}`);
+      core.warning(`Failed to post/update comment: ${error}`);
     }
 
     // Set outputs
