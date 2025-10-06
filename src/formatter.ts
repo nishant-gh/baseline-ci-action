@@ -53,7 +53,10 @@ No non-baseline features detected in this PR. All features used are ${
   if (byStatus.limited.length > 0) {
     comment += `| 🔴 Limited | ${byStatus.limited.length} | Not yet baseline, limited browser support |\n`;
   }
-  if (byStatus.newly.length > 0 && (targetBaseline === 'widely' || targetBaseline === 'all')) {
+  if (
+    byStatus.newly.length > 0 &&
+    (targetBaseline === 'widely' || targetBaseline === 'all')
+  ) {
     comment += `| 🟡 Newly | ${byStatus.newly.length} | Baseline but < 30 months across browsers |\n`;
   }
   if (byStatus.widely.length > 0 && targetBaseline === 'all') {
@@ -155,7 +158,10 @@ No non-baseline features detected in this PR. All features used are ${
 /**
  * Get documentation URL for a feature
  */
-function getFeatureUrl(featureId: string | undefined, featureName: string): string | null {
+function getFeatureUrl(
+  featureId: string | undefined,
+  featureName: string,
+): string | null {
   if (!featureId) return null;
 
   const featureData = features[featureId];
@@ -163,13 +169,17 @@ function getFeatureUrl(featureId: string | undefined, featureName: string): stri
 
   // Try to get caniuse URL first
   if (featureData.caniuse) {
-    const caniuseId = Array.isArray(featureData.caniuse) ? featureData.caniuse[0] : featureData.caniuse;
+    const caniuseId = Array.isArray(featureData.caniuse)
+      ? featureData.caniuse[0]
+      : featureData.caniuse;
     return `https://caniuse.com/${caniuseId}`;
   }
 
   // Try to get spec URL as fallback
   if (featureData.spec) {
-    const specUrl = Array.isArray(featureData.spec) ? featureData.spec[0] : featureData.spec;
+    const specUrl = Array.isArray(featureData.spec)
+      ? featureData.spec[0]
+      : featureData.spec;
     return specUrl;
   }
 
@@ -193,9 +203,12 @@ function getBrowserSupport(featureAnalysis: FeatureAnalysis): string {
       const featureData = features[featureId];
       if (featureData.status?.support) {
         const browsers = [];
-        if (featureData.status.support.chrome) browsers.push(`Chrome ${featureData.status.support.chrome}`);
-        if (featureData.status.support.firefox) browsers.push(`Firefox ${featureData.status.support.firefox}`);
-        if (featureData.status.support.safari) browsers.push(`Safari ${featureData.status.support.safari}`);
+        if (featureData.status.support.chrome)
+          browsers.push(`Chrome ${featureData.status.support.chrome}`);
+        if (featureData.status.support.firefox)
+          browsers.push(`Firefox ${featureData.status.support.firefox}`);
+        if (featureData.status.support.safari)
+          browsers.push(`Safari ${featureData.status.support.safari}`);
         if (browsers.length > 0) {
           return browsers.slice(0, 2).join(', ');
         }

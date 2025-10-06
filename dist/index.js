@@ -883,7 +883,8 @@ No non-baseline features detected in this PR. All features used are ${targetBase
     if (byStatus.limited.length > 0) {
         comment += `| 🔴 Limited | ${byStatus.limited.length} | Not yet baseline, limited browser support |\n`;
     }
-    if (byStatus.newly.length > 0 && (targetBaseline === 'widely' || targetBaseline === 'all')) {
+    if (byStatus.newly.length > 0 &&
+        (targetBaseline === 'widely' || targetBaseline === 'all')) {
         comment += `| 🟡 Newly | ${byStatus.newly.length} | Baseline but < 30 months across browsers |\n`;
     }
     if (byStatus.widely.length > 0 && targetBaseline === 'all') {
@@ -989,12 +990,16 @@ function getFeatureUrl(featureId, featureName) {
         return null;
     // Try to get caniuse URL first
     if (featureData.caniuse) {
-        const caniuseId = Array.isArray(featureData.caniuse) ? featureData.caniuse[0] : featureData.caniuse;
+        const caniuseId = Array.isArray(featureData.caniuse)
+            ? featureData.caniuse[0]
+            : featureData.caniuse;
         return `https://caniuse.com/${caniuseId}`;
     }
     // Try to get spec URL as fallback
     if (featureData.spec) {
-        const specUrl = Array.isArray(featureData.spec) ? featureData.spec[0] : featureData.spec;
+        const specUrl = Array.isArray(featureData.spec)
+            ? featureData.spec[0]
+            : featureData.spec;
         return specUrl;
     }
     // Default to MDN search
