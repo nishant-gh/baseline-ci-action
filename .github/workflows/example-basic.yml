@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run Baseline CI
-        uses: nishant-gh/baseline-ci-action@v1
+        uses: nishant-gh/baseline-ci-action@v0.1.0-alpha
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           severity: 'warn'
