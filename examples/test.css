@@ -1,0 +1,70 @@
+/* Example CSS file showing various features for testing Baseline CI */
+
+/* Widely available features (safe to use) */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* Check if gap is widely available */
+}
+
+/* Container queries (newer feature) */
+@container (min-width: 700px) {
+  .card {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.sidebar {
+  container-type: inline-size;
+  container-name: sidebar;
+}
+
+/* CSS Cascade Layers (newer feature) */
+@layer base, components, utilities;
+
+@layer base {
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+/* Modern selectors */
+.parent:has(> .child) {
+  background-color: lightblue;
+}
+
+.button:is(:hover, :focus) {
+  transform: scale(1.05);
+}
+
+/* Math functions */
+.responsive {
+  width: clamp(200px, 50%, 800px);
+  padding: min(2rem, 5vw);
+}
+
+/* Modern properties */
+.aspect-box {
+  aspect-ratio: 16 / 9;
+}
+
+.grid-container {
+  display: grid;
+  place-items: center;
+}
+
+.positioned {
+  inset: 0;
+}
+
+.scrollable {
+  scroll-snap-type: y mandatory;
+  overscroll-behavior: contain;
+}
+
+.themed {
+  accent-color: blue;
+  color-scheme: light dark;
+}

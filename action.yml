@@ -1,0 +1,36 @@
+name: 'Baseline CI'
+description: 'Analyze PRs for web feature compatibility using Baseline data'
+author: 'baseline-ci-action'
+branding:
+  icon: 'check-circle'
+  color: 'blue'
+
+inputs:
+  github-token:
+    description: 'GitHub token for API access'
+    required: true
+    default: ${{ github.token }}
+  severity:
+    description: 'Fail on limited features or warn only (fail/warn)'
+    required: false
+    default: 'warn'
+  target-baseline:
+    description: 'Target baseline status (widely/newly/all)'
+    required: false
+    default: 'widely'
+  file-patterns:
+    description: 'Glob patterns for files to analyze (comma-separated)'
+    required: false
+    default: '**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.css,**/*.scss'
+
+outputs:
+  features-detected:
+    description: 'JSON array of detected features'
+  non-baseline-count:
+    description: 'Number of non-baseline features detected'
+  status:
+    description: 'Analysis status (pass/fail)'
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

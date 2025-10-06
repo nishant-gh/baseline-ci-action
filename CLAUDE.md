@@ -1,0 +1,2 @@
+- This project uses pnpm
+- Use context7 whenever needed to fetch library docs

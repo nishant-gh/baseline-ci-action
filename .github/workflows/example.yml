@@ -1,0 +1,22 @@
+name: Baseline CI Example
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  baseline-check:
+    name: Check Baseline Compatibility
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Baseline CI
+        uses: ./
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          severity: 'warn'
+          target-baseline: 'widely'
+          file-patterns: '**/*.js,**/*.jsx,**/*.ts,**/*.tsx,**/*.css,**/*.scss'
