@@ -8,6 +8,7 @@
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
+    "test:integration": "tsx scripts/integration-test.ts",
     "format": "biome format --write .",
     "lint": "biome lint --write .",
     "check": "biome check --write .",
@@ -37,6 +38,8 @@
     "@types/node": "^24.6.2",
     "@vercel/ncc": "^0.38.4",
     "@vitest/ui": "^3.2.4",
+    "glob": "^11.0.3",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "vitest": "^3.2.4"
   }
